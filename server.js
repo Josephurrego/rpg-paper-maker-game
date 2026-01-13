@@ -16,10 +16,19 @@ app.get('/.protect', (req, res) => {
   res.status(404).send('Not Found');
 });
 
+// Servir archivos estáticos con MIME types correctos
 app.use(express.static(path.join(__dirname), {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.json')) {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.json')) {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    } else if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    } else if (filePath.endsWith('.mjs')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    } else if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=utf-8');
+    } else if (filePath.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
     }
   }
 }));
@@ -29,9 +38,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Fallback para rutas no encontradas (sirve index.html)
+// Fallback para rutas SPA (NO para archivos con extensión)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  // No servir index.html para archivos con extensión
+  if (path.extname(req.path) === '') {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  } else {
+    res.status(404).send('Not Found');
+  }
 });
 
 // Para desarrollo local
