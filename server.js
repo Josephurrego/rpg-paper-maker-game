@@ -29,6 +29,24 @@ app.use(express.static(path.join(__dirname), {
       res.setHeader('Content-Type', 'text/css; charset=utf-8');
     } else if (filePath.endsWith('.html')) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    } else if (filePath.endsWith('.obj')) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    } else if (filePath.endsWith('.mtl')) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    } else if (filePath.endsWith('.png')) {
+      res.setHeader('Content-Type', 'image/png');
+    } else if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
+      res.setHeader('Content-Type', 'image/jpeg');
+    } else if (filePath.endsWith('.gif')) {
+      res.setHeader('Content-Type', 'image/gif');
+    } else if (filePath.endsWith('.wav')) {
+      res.setHeader('Content-Type', 'audio/wav');
+    } else if (filePath.endsWith('.mp3')) {
+      res.setHeader('Content-Type', 'audio/mpeg');
+    } else if (filePath.endsWith('.ogg')) {
+      res.setHeader('Content-Type', 'audio/ogg');
+    } else if (filePath.endsWith('.mp4')) {
+      res.setHeader('Content-Type', 'video/mp4');
     }
   }
 }));
